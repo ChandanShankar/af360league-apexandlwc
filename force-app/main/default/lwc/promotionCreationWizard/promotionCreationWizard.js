@@ -2,6 +2,7 @@ import { LightningElement, api, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 
 /** TODO FOR THE CHALLENGE: import the state manager */
+import promotionStateManager from 'c/promotionStateManager';
 
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { CloseActionScreenEvent } from 'lightning/actions';
@@ -9,12 +10,11 @@ import savePromotion from '@salesforce/apex/PromotionCreatorCtrl.savePromotion';
 
 export default class PromotionCreationWizard extends NavigationMixin(LightningElement) {
     @api recordId; // Account Id from record page context
-
+    @track isSaving = false;
     currentStep = 1;
 
     /** TODO FOR THE CHALLENGE: initialize the state manager */
-
-    @track isSaving = false;
+    promotionState = promotionStateManager();
 
     handleNext() {
         if (this.currentStep === 1) {
